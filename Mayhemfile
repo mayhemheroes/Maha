@@ -1,0 +1,6 @@
+project: maha
+target: fuzz
+
+cmds:
+    - cmd: fuzz/fuzz.py
+      libfuzzer: true 
