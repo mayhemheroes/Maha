@@ -1,6 +1,6 @@
 project: maha
-target: fuzz
+target: fuzz_parser
 
 cmds:
-    - cmd: fuzz/fuzz.py
+    - cmd: fuzz/fuzz_parser.py
       libfuzzer: true 
