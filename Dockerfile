@@ -1,6 +1,9 @@
-FROM python:3.8-bullseye
-RUN python3 -m pip install atheris
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y clang gcc curl && rm -rf /var/lib/apt/lists/*
+RUN CLANG_BIN=$(which clang) python3 -m pip install atheris
+RUN curl -sSL https://install.python-poetry.org | python3 -
 COPY . /maha
 WORKDIR /maha
-RUN ~/.poetry/bin/poetry build && python3 -m pip install dist/*.whl && chmod +x fuzz/fuzz_parser.py
+ENV PATH="/root/.local/bin:$PATH"
+RUN poetry build && python3 -m pip install dist/*.whl && chmod +x fuzz/fuzz_parser.py
